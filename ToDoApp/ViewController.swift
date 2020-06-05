@@ -20,12 +20,38 @@ class ViewController: SwipeViewController {
         tableView.rowHeight = 80.0
     }
     
-    override func updateModel(with indexPath: IndexPath) {
+    override func removeModel(with indexPath: IndexPath) {
         //Remove this item
         let id = todos[indexPath.row].id
         utils.removeItem(id) {
             self.tableView.reloadData()
         }
+    }
+    
+    override func updateModel(with indexPath: IndexPath) {
+        //Remove this item
+        let id = todos[indexPath.row].id
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Edit ToDo Items", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Edit Item", style: .default) { (action) in
+            if let text = textField.text {
+                let todo = Todo(name: text)
+                self.utils.updateItem(id, todo) {
+                    self.performOnAppear()
+                }
+            }
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.text = self.todos[indexPath.row].name
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func performOnAppear() {

@@ -40,7 +40,7 @@ class Utils {
         return todolist
     }
     
-    func updateItem(_ id: String, _ updateItem: Todo) {
+    func updateItem(_ id: String, _ updateItem: Todo, _ callback: @escaping () -> Void) {
         Amplify.DataStore.query(Todo.self, where: Todo.keys.id.eq(id)) { (result) in
             switch(result) {
             case .success(let todos):
@@ -51,7 +51,7 @@ class Utils {
                 updatedTodo.name = updateItem.name
                 
                 createItem(with: updateItem) {
-                    
+                    callback()
                 }
             case .failure(let error):
                 print("Could not query DataStore: \(error)")
