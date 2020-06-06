@@ -9,8 +9,23 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
+//import Combine
 
 class Utils {
+    
+    /*  Function available ios 13 or newer.
+     func subscribeTodos() {
+        if #available(iOS 13.0, *) {
+            Amplify.DataStore.publisher(for: Todo.self)
+                .sink(receiveCompletion: { completion in
+                    print("Subscription has been completed: \(completion)")
+                }, receiveValue: { mutationEvent in
+                    print("Subscription got this value: \(mutationEvent)")
+                })
+        } else {
+            print("Function Subcribe available above iOS 13 newer.")
+        }
+    } */
     
     func createItem(with item: Todo, _ callback: @escaping () -> Void) {
         Amplify.DataStore.save(item) { (result) in

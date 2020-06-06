@@ -18,6 +18,7 @@ class ViewController: SwipeViewController {
         // Do any additional setup after loading the view.
         performOnAppear()
         tableView.rowHeight = 80.0
+        //utils.subscribeTodos()
     }
     
     override func removeModel(with indexPath: IndexPath) {
@@ -49,7 +50,9 @@ class ViewController: SwipeViewController {
             textField = alertTextField
         }
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(action)
+        
         
         present(alert, animated: true, completion: nil)
     }
@@ -79,7 +82,9 @@ class ViewController: SwipeViewController {
             textField = alertTextField
         }
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(action)
+        
         
         present(alert, animated: true, completion: nil)
     }
